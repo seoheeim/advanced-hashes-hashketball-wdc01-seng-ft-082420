@@ -1,4 +1,7 @@
 # Write your code below game_hash
+require './hashketball.rb'
+require 'pry'
+
 def game_hash
   {
     home: {
@@ -127,3 +130,66 @@ def game_hash
 end
 
 # Write code here
+def num_points_scored(player_name)
+  game_hash.each do |place, team|
+    team.each do |attribute, data|
+      if attribute == :players
+        data.each do |player|
+          if player[:player_name] == player_name
+            return player[:points]
+          end
+        end
+      end
+    end
+  end
+end 
+
+def shoe_size(player_name)
+  game_hash.each do |place, team|     #place = :home :away,    team = :team name, :color, :players
+    team.each do |attribute, data|    #attribute = :team name, data = "Brooklyn nets"
+      if attribute == :players
+        data.each do |player|
+          if player[:player_name] == player_name
+            return player[:shoe]
+          end
+        end
+      end
+    end
+  end
+end 
+
+
+def team_colors (team_name)
+  if team_name.downcase == "brooklyn nets"
+    return game_hash[:home][:colors]
+  else
+    return game_hash[:away][:colors]
+  end 
+end
+
+def team_names
+  team_name = []
+  team_name.push("Brooklyn Nets", "Charlotte Hornets")
+  return team_name
+end
+
+def player_numbers(team_name)
+  #return jersey numbers in array
+  jersey_numbers = []
+  if team_name.downcase == "brooklyn nets"
+    jersey_numbers << 0 << 30 << 11 << 1 << 31
+  else
+    jersey_numbers << 4 << 0 << 2 << 8 << 33
+  end
+end
+
+def player_stats(name)
+  game_hash().each do |location, team_data|
+    team_data[:players].map do |player_name, player_stats|
+      if name == player_name
+        return player_stats
+      end
+    end
+  end 
+end
+
